@@ -4,9 +4,9 @@ module.exports = (sequelize, Sequalize) => {
 			type: Sequalize.STRING
 		},
 		amount: {
-			type: Sequalize.DECIMAL(3)
+			type: Sequalize.DECIMAL(10, 3)
 		}
 	});
 
 	return Material;
-}
+};

@@ -21,6 +21,15 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.forms = require('./forms.model.js')(sequelize, Sequelize);
+db.materials = require('./material.model.js')(sequelize, Sequelize);
+db.employees = require('./employee.model.js')(sequelize, Sequelize);
+db.work = require('./work.model.js')(sequelize, Sequelize);
+db.usage = require('./usage.model.js')(sequelize, Sequelize);
+
+
+// Associations (foreign key references)
+db.usage.HasOne(db.employees, { onUpdate: 'CASCADE', onDelete: 'RESTRICT' });
+db.usage.HasOne(db.materials, { onUpdate: 'CASCADE', onDelete: 'RESTRICT' });
+db.usage.HasOne(db.work, { onUpdate: 'CASCADE', onDelete: 'RESTRICT' });
 
 module.exports = db;
