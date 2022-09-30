@@ -28,8 +28,8 @@ db.usage = require('./usage.model.js')(sequelize, Sequelize);
 
 
 // Associations (foreign key references)
-db.usage.HasOne(db.employees, { onUpdate: 'CASCADE', onDelete: 'RESTRICT' });
-db.usage.HasOne(db.materials, { onUpdate: 'CASCADE', onDelete: 'RESTRICT' });
-db.usage.HasOne(db.work, { onUpdate: 'CASCADE', onDelete: 'RESTRICT' });
+db.materials.hasOne(db.usage, { onUpdate: 'CASCADE', onDelete: 'RESTRICT' });
+db.employees.hasOne(db.usage, { onUpdate: 'CASCADE', onDelete: 'RESTRICT' });
+db.work.hasOne(db.usage, { onUpdate: 'CASCADE', onDelete: 'RESTRICT' });
 
 module.exports = db;
