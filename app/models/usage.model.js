@@ -4,7 +4,7 @@ module.exports = (sequelize, Sequalize) => {
 			type: Sequalize.DECIMAL
 		},
 		time: {
-			type: DATE,
+			type: Sequalize.DATE,
 			defaultValue: Sequalize.NOW
 		}
 	});
