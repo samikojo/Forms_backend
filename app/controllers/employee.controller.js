@@ -1,5 +1,5 @@
 const db = require("../models");
-const Material = db.Material;
+const Employee = db.Employee;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -12,36 +12,34 @@ exports.create = (req, res) => {
 	}
 
 	// Create a Tutorial
-	const material = {
-		rawMaterial: req.body.rawMaterial,
-		amount: req.body.amount,
+	const employee = {
+		first_name: req.body.first_name,
+		last_name: req.body.last_name,
+		phone: req.body.phone
 	};
 
-	// Save Tutorial in the database
-	Material.create(material)
+	// Save in the database
+	Employee.create(employee)
 		.then(data => {
 			res.send(data);
 		})
 		.catch(err => {
 			res.status(500).send({
 				message:
-					err.message || "Some error occurred while creating the Tutorial."
+					err.message || "Some error occurred while creating the Employee."
 			});
 		});
 };
 
 exports.findAll = (req, res) => {
-	const name = req.query.name;
-	var condition = name ? { rawMaterial: { [Op.like]: `%${name}%` } } : null;
-
-	Material.findAll({ where: condition })
+	Material.findAll()
 		.then(data => {
 			res.send(data);
 		})
 		.catch(err => {
 			res.status(500).send({
 				message:
-					err.message || "Some error occurred while retrieving tutorials."
+					err.message || "Some error occurred while retrieving employees."
 			});
 		});
 };
@@ -49,19 +47,19 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
 	const id = req.params.id;
 
-	Material.findByPk(id)
+	Employee.findByPk(id)
 		.then(data => {
 			if (data) {
 				res.send(data);
 			} else {
 				res.status(404).send({
-					message: `Cannot find Material with id=${id}.`
+					message: `Cannot find Employee with id=${id}.`
 				});
 			}
 		})
 		.catch(err => {
 			res.status(500).send({
-				message: "Error retrieving Material with id=" + id
+				message: "Error retrieving Employee with id=" + id
 			});
 		});
 };
@@ -69,23 +67,23 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
 	const id = req.params.id;
 
-	Material.update(req.body, {
+	Employee.update(req.body, {
 		where: { id: id }
 	})
 		.then(num => {
 			if (num == 1) {
 				res.send({
-					message: "Material was updated successfully."
+					message: "Employee was updated successfully."
 				});
 			} else {
 				res.send({
-					message: `Cannot update Material with id=${id}. Maybe Material was not found or req.body is empty!`
+					message: `Cannot update Employee with id=${id}.`
 				});
 			}
 		})
 		.catch(err => {
 			res.status(500).send({
-				message: "Error updating Material with id=" + id
+				message: "Error updating Employee with id=" + id
 			});
 		});
 };
@@ -93,39 +91,39 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
 	const id = req.params.id;
 
-	Material.destroy({
+	Employee.destroy({
 		where: { id: id }
 	})
 		.then(num => {
 			if (num == 1) {
 				res.send({
-					message: "Material was deleted successfully!"
+					message: "Employee was deleted successfully!"
 				});
 			} else {
 				res.send({
-					message: `Cannot delete Material with id=${id}. Maybe Material was not found!`
+					message: `Cannot delete Employee with id=${id}. Maybe Employee was not found!`
 				});
 			}
 		})
 		.catch(err => {
 			res.status(500).send({
-				message: "Could not delete Material with id=" + id
+				message: "Could not delete Employee with id=" + id
 			});
 		});
 };
 
 exports.deleteAll = (req, res) => {
-	Material.destroy({
+	Employee.destroy({
 		where: {},
 		truncate: false
 	})
 		.then(nums => {
-			res.send({ message: `${nums} Materials were deleted successfully!` });
+			res.send({ message: `${nums} Employees were deleted successfully!` });
 		})
 		.catch(err => {
 			res.status(500).send({
 				message:
-					err.message || "Some error occurred while removing all materials."
+					err.message || "Some error occurred while removing all employees."
 			});
 		});
 };
