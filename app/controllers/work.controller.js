@@ -1,10 +1,10 @@
 const db = require("../models");
-const Work = db.Work;
+const Work = db.work;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
 	// Validate request
-	if (!req.body.title) {
+	if (!req.body.code) {
 		res.status(400).send({
 			message: "Content can not be empty!"
 		});
@@ -14,8 +14,8 @@ exports.create = (req, res) => {
 	// Create a Tutorial
 	const work = {
 		code: req.body.code,
-		start_date: req.body.start_date,
-		due_date: req.body.due_date
+		start_date: req.body.start_date ?? Date.now(),
+		due_date: req.body.due_date ?? Date.now()
 	};
 
 	// Save Tutorial in the database

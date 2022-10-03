@@ -1,15 +1,12 @@
 const db = require("../models");
-const Usage = db.Usage;
+const Usage = db.usage;
+const Employee = db.employees;
+const Material = db.materials;
+const Work = db.work;
+
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
-	// Validate request
-	if (!req.body.title) {
-		res.status(400).send({
-			message: "Content can not be empty!"
-		});
-		return;
-	}
 
 	// Create a Tutorial
 	const usage = {
@@ -21,16 +18,20 @@ exports.create = (req, res) => {
 	};
 
 	// Save in the database
-	Usage.create(usage)
-		.then(data => {
-			res.send(data);
-		})
-		.catch(err => {
-			res.status(500).send({
-				message:
-					err.message || "Some error occurred while creating the Usage."
-			});
+	Usage.create(
+		usage, {
+		include: [
+			{ association: Employee },
+			{ association: Material },
+			{ association: Work }]
+	}).then(data => {
+		res.send(data);
+	}).catch(err => {
+		res.status(500).send({
+			message:
+				err.message || "Some error occurred while creating the Usage."
 		});
+	});
 };
 
 exports.findAll = (req, res) => {

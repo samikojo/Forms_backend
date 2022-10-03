@@ -1,23 +1,21 @@
 const db = require("../models");
-const Material = db.Material;
+const Material = db.materials;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
 	// Validate request
-	if (!req.body.title) {
+	if (!req.body.rawMaterial) {
 		res.status(400).send({
 			message: "Content can not be empty!"
 		});
 		return;
 	}
 
-	// Create a Tutorial
 	const material = {
 		rawMaterial: req.body.rawMaterial,
-		amount: req.body.amount,
+		amount: req.body.amount ?? 0,
 	};
 
-	// Save Tutorial in the database
 	Material.create(material)
 		.then(data => {
 			res.send(data);
@@ -25,7 +23,7 @@ exports.create = (req, res) => {
 		.catch(err => {
 			res.status(500).send({
 				message:
-					err.message || "Some error occurred while creating the Tutorial."
+					err.message || "Some error occurred while creating the Material."
 			});
 		});
 };
@@ -41,7 +39,7 @@ exports.findAll = (req, res) => {
 		.catch(err => {
 			res.status(500).send({
 				message:
-					err.message || "Some error occurred while retrieving tutorials."
+					err.message || "Some error occurred while retrieving materials."
 			});
 		});
 };

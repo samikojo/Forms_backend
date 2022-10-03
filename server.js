@@ -31,6 +31,11 @@ app.get("/", (req, res) => {
 	res.json({ message: "Welcome to Forms application." });
 });
 
+require("./app/routes/employee.routes")(app);
+require("./app/routes/material.routes")(app);
+require("./app/routes/work.routes")(app);
+require("./app/routes/usage.routes")(app);
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
 	console.log(`The app is running on port ${PORT}`);

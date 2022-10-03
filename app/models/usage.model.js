@@ -6,7 +6,8 @@ module.exports = (sequelize, Sequalize) => {
 		time: {
 			type: Sequalize.DATE,
 			defaultValue: Sequalize.NOW
-		}
+		},
+
 	});
 
 	return Usage;

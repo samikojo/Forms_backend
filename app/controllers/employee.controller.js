@@ -1,17 +1,8 @@
 const db = require("../models");
-const Employee = db.Employee;
+const Employee = db.employees;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
-	// Validate request
-	if (!req.body.title) {
-		res.status(400).send({
-			message: "Content can not be empty!"
-		});
-		return;
-	}
-
-	// Create a Tutorial
 	const employee = {
 		first_name: req.body.first_name,
 		last_name: req.body.last_name,
@@ -32,7 +23,7 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-	Material.findAll()
+	Employee.findAll()
 		.then(data => {
 			res.send(data);
 		})
