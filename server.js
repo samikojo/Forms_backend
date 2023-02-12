@@ -1,17 +1,26 @@
 const express = require("express");
 const cors = require("cors");
+const session = require('express-session');
 
 const app = express();
 
+app.use(session({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: true
+}));
+
 let corsOptions = {
-	origin: "localhost:8081",
+	origin: "http://127.0.0.1:5173",
 };
 
+app.use(cors(corsOptions));
+
 // parse requests of content-type - application/json
-app.use(express.json())
+app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
 
 const db = require('./app/models');
 db.sequelize.sync().then(() => {
@@ -35,6 +44,7 @@ require("./app/routes/employee.routes")(app);
 require("./app/routes/material.routes")(app);
 require("./app/routes/work.routes")(app);
 require("./app/routes/usage.routes")(app);
+require("./app/routes/user.routes")(app);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

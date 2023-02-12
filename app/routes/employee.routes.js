@@ -8,7 +8,7 @@ module.exports = app => {
 	router.get("/", employees.findAll);
 
 	// Retrieve a single Tutorial with id
-	router.get("/:id", employees.findOne);
+	router.get("/:id/", employees.findOne);
 
 	// Update a Tutorial with id
 	router.put("/:id", employees.update);

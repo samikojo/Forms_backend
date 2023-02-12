@@ -25,6 +25,7 @@ db.materials = require('./material.model.js')(sequelize, Sequelize);
 db.employees = require('./employee.model.js')(sequelize, Sequelize);
 db.work = require('./work.model.js')(sequelize, Sequelize);
 db.usage = require('./usage.model.js')(sequelize, Sequelize);
+db.users = require('./user.model.js')(sequelize, Sequelize);
 
 
 // Associations (foreign key references)
